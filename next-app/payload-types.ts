@@ -8,93 +8,124 @@
 
 export interface Config {
   collections: {
-    pages: Page
-    users: User
-    'payload-preferences': PayloadPreference
-    'payload-migrations': PayloadMigration
-  }
+    pages: Page;
+    users: User;
+    'payload-preferences': PayloadPreference;
+    'payload-migrations': PayloadMigration;
+  };
   globals: {
-    'main-menu': MainMenu
-  }
+    'main-menu': MainMenu;
+  };
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
 export interface Page {
-  id: string
-  title: string
-  slug?: string
+  id: string;
+  title: string;
+  slug?: string | null;
   richText: {
-    [k: string]: unknown
-  }[]
-  updatedAt: string
-  createdAt: string
-}
-export interface User {
-  id: string
-  updatedAt: string
-  createdAt: string
-  email: string
-  resetPasswordToken?: string
-  resetPasswordExpiration?: string
-  salt?: string
-  hash?: string
-  loginAttempts?: number
-  lockUntil?: string
-  password?: string
-}
-export interface PayloadPreference {
-  id: string
-  user: {
-    relationTo: 'users'
-    value: string | User
-  }
-  key?: string
-  value?:
+    [k: string]: unknown;
+  }[];
+  layout?:
+  | (
     | {
-        [k: string]: unknown
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null
-  updatedAt: string
-  createdAt: string
-}
-export interface PayloadMigration {
-  id: string
-  name?: string
-  batch?: number
-  updatedAt: string
-  createdAt: string
-}
-export interface MainMenu {
-  id: string
-  navItems?: {
-    link: {
-      type?: 'reference' | 'custom'
-      newTab?: boolean
-      reference: {
-        relationTo: 'pages'
-        value: string | Page
-      }
-      url: string
-      label: string
+      heroTitle?: string | null;
+      heroSubtitle?: string | null;
+      id?: string | null;
+      blockName?: string | null;
+      blockType: 'hero';
     }
-    id?: string
-  }[]
-  updatedAt?: string
-  createdAt?: string
+    | {
+      listTitle?: string | null;
+      listItems?:
+      | {
+        listItem?: string | null;
+        id?: string | null;
+      }[]
+      | null;
+      id?: string | null;
+      blockName?: string | null;
+      blockType: 'list';
+    }
+  )[]
+  | null;
+  updatedAt: string;
+  createdAt: string;
 }
-
-declare module 'payload' {
-  export interface GeneratedTypes {
-    collections: {
-      pages: Page
-      users: User
-      'payload-preferences': PayloadPreference
-      'payload-migrations': PayloadMigration
-    }
-    globals: {
-      'main-menu': MainMenu
-    }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: string;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences".
+ */
+export interface PayloadPreference {
+  id: string;
+  user: {
+    relationTo: 'users';
+    value: string | User;
+  };
+  key?: string | null;
+  value?:
+  | {
+    [k: string]: unknown;
   }
+  | unknown[]
+  | string
+  | number
+  | boolean
+  | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations".
+ */
+export interface PayloadMigration {
+  id: string;
+  name?: string | null;
+  batch?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "main-menu".
+ */
+export interface MainMenu {
+  id: string;
+  navItems?:
+  | {
+    link: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?: {
+        relationTo: 'pages';
+        value: string | Page;
+      } | null;
+      url?: string | null;
+      label: string;
+    };
+    id?: string | null;
+  }[]
+  | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }

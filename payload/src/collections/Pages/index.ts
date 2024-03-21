@@ -2,6 +2,8 @@ import type { CollectionConfig } from 'payload/types'
 
 import richText from '../../fields/richText'
 import { loggedIn } from './access/loggedIn'
+import { BlockHero } from './blocks/hero'
+import { BlockList } from './blocks/list'
 import formatSlug from './hooks/formatSlug'
 
 export const Pages: CollectionConfig = {
@@ -39,5 +41,13 @@ export const Pages: CollectionConfig = {
       },
     },
     richText(),
+    {
+      name: 'layout',
+      type: 'blocks',
+      blocks: [
+        BlockHero,
+        BlockList
+      ]
+    }
   ],
 }
